@@ -6,6 +6,8 @@ from .serializers import CandidateSerializer
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
 from rest_framework import permissions
 from django.http import Http404 
+from django.db.models import Q
+from itertools import combinations
 from rest_framework.pagination import PageNumberPagination
 
 class CustomPagination(PageNumberPagination):
@@ -127,7 +129,7 @@ class CandidateSearchAPIView(APIView):
             'message': 'Candidates data fetched successfully',
             'data': serializer.data
         })
-    
+  
 
 class NameSearchAPIView(APIView):
     pagination_class = CustomPagination
@@ -135,11 +137,17 @@ class NameSearchAPIView(APIView):
     def get(self, request, format=None):
         query = request.query_params.get('query', '')
 
-        # Filter candidates based on name containing query
-        candidates = Candidate.objects.filter(name__icontains=query)
+        # Split the query into individual words
+        query_words = query.lower().split()
+
+        # Filter candidates based on name containing any of the query words
+        candidates = Candidate.objects.all()
+
+        for word in query_words:
+            candidates = candidates.filter(name__icontains=word)
 
         # Sort the candidates by relevance (number of overlapping words)
-        candidates = sorted(candidates, key=lambda candidate: self.relevance_sort(candidate, query), reverse=True)
+        candidates = sorted(candidates, key=lambda candidate: self.relevance_sort(candidate, query_words), reverse=True)
 
         # Paginate the results
         paginator = self.pagination_class()
@@ -161,11 +169,10 @@ class NameSearchAPIView(APIView):
             'data': serializer.data
         })
 
-    def relevance_sort(self, candidate, query):
+    def relevance_sort(self, candidate, query_words):
         # Count the number of overlapping words in the candidate's name
-        candidate_name_words = set(candidate.name.lower().split())
-        query_words = set(query.lower().split())
-        overlapping_words = candidate_name_words & query_words
+        candidate_name_words = candidate.name.lower().split()
+        overlapping_words = [word for word in query_words if word in candidate_name_words]
 
-        # Return the negative count to sort in descending order
-        return -len(overlapping_words)
+        # Return the count of overlapping words
+        return len(overlapping_words)
