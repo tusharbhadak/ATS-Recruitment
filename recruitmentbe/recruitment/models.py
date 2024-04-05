@@ -17,7 +17,7 @@ class Candidate(models.Model):
         ('Rejected', 'Rejected'),
     ]
 
-    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
     age = models.IntegerField()
     gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
     years_of_exp = models.IntegerField()
