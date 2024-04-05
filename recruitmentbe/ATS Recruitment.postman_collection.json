@@ -1,0 +1,385 @@
+{
+	"info": {
+		"_postman_id": "821e32e9-ace2-4eaa-84b3-d14e2d2011b5",
+		"name": "ATS Recruitment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29822086"
+	},
+	"item": [
+		{
+			"name": "Accounts",
+			"item": [
+				{
+					"name": "Add User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Recruiter",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "recruiter1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "mobile_number",
+									"value": "9087654322",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Recruiter@123#",
+									"type": "text"
+								},
+								{
+									"key": "confirm_password",
+									"value": "Recruiter@123#",
+									"type": "text"
+								},
+								{
+									"key": "role",
+									"value": "Recruiter",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/account/signup/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"account",
+								"signup",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "recruiter1@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "Recruiter@123#",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/account/login/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"account",
+								"login",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzkwMjU0LCJpYXQiOjE3MTIzMDM4NTQsImp0aSI6ImM4MWQxNjI1OTZjNTQ3MDdiZTY5YjYwMWE4NzM3OTFjIiwidXNlcl9pZCI6Mn0.VJAEkCcNqdEPE-RfPm3g1GzUTiTHdfPD1qkL52q2VOE",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/account/user/profile/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"account",
+								"user",
+								"profile",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recruitment",
+			"item": [
+				{
+					"name": "Create Candidate",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "age",
+									"value": "23",
+									"type": "text"
+								},
+								{
+									"key": "gender",
+									"value": "Female",
+									"type": "text"
+								},
+								{
+									"key": "years_of_exp",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "phone_number",
+									"value": "987654321",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "candidate2@gmail.com",
+									"type": "text"
+								},
+								{
+									"key": "current_salary",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "expected_salary",
+									"value": "8",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/recruitment/create/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"recruitment",
+								"create",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Candidate Status - Shortlist or Reject candidates",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNzEyMzkyNjA5LCJpYXQiOjE3MTIzMDYyMDksImp0aSI6ImViMzdlYjI4OWYxNjRjNTZiMmQyNzdlZWU3ZTYyNGIxIiwidXNlcl9pZCI6M30.x7nui7IajgWaQP3EAGsdcyuN8yLbgHpgkoaC84lZWVc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "status",
+									"value": "Shortlisted",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://127.0.0.1:8000/recruitment/candidatesstatus/1/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"recruitment",
+								"candidatesstatus",
+								"1",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Candidate List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/recruitment/candidates/search/",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"recruitment",
+								"candidates",
+								"search",
+								""
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "email",
+									"value": "shubhangi@gmail.com",
+									"disabled": true
+								},
+								{
+									"key": "name",
+									"value": "Yadav Smita",
+									"disabled": true
+								},
+								{
+									"key": "phone_number",
+									"value": "7907904534",
+									"disabled": true
+								},
+								{
+									"key": "age_min",
+									"value": "24",
+									"disabled": true
+								},
+								{
+									"key": "age_max",
+									"value": "28",
+									"disabled": true
+								},
+								{
+									"key": "years_of_exp_min",
+									"value": "5",
+									"disabled": true
+								},
+								{
+									"key": "expected_salary_min",
+									"value": "8",
+									"disabled": true
+								},
+								{
+									"key": "expected_salary_max",
+									"value": "12",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Candidate Search by Name List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:8000/recruitment/candidates/name-search/?query=Ajay kumar yadav",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "8000",
+							"path": [
+								"recruitment",
+								"candidates",
+								"name-search",
+								""
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "Ajay kumar yadav"
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
