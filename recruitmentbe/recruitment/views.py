@@ -140,13 +140,19 @@ class NameSearchAPIView(APIView):
         # Split the query into individual words
         query_words = query.lower().split()
 
-        # Filter candidates based on name containing any of the query words
-        candidates = Candidate.objects.all()
+        # Filter candidates based on exact match
+        exact_matches = Candidate.objects.filter(name__iexact=query)
+
+        # Filter candidates based on partial match for each word in the query
+        partial_matches = Candidate.objects.none()
 
         for word in query_words:
-            candidates = candidates.filter(name__icontains=word)
+            partial_matches |= Candidate.objects.filter(name__icontains=word).exclude(name__iexact=query)
 
-        # Sort the candidates by relevance (number of overlapping words)
+        # Combine exact and partial matches
+        candidates = list(partial_matches) + list(exact_matches)
+
+        # Sort the candidates based on relevance
         candidates = sorted(candidates, key=lambda candidate: self.relevance_sort(candidate, query_words), reverse=True)
 
         # Paginate the results
@@ -174,5 +180,5 @@ class NameSearchAPIView(APIView):
         candidate_name_words = candidate.name.lower().split()
         overlapping_words = [word for word in query_words if word in candidate_name_words]
 
-        # Return the count of overlapping words
+        # Return the count of overlapping words to sort in descending order
         return len(overlapping_words)
